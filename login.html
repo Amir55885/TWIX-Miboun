@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    /* Video Background Styling */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Make the video cover the entire screen */
+    z-index: -1; /* Place the video behind other content */
+}
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      width: 800px;
+      height: 450px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Black Section */
+    .black-section {
+      flex: 1;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .black-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .black-section p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #bbb;
+    }
+
+    /* White Section */
+    .white-section {
+      flex: 1;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .white-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #000;
+    }
+
+    .input-group {
+      width: 100%;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: #444;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      color: #777;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    .footer-text {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer-text a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+ /* Small Play Music Button */
+#play-audio {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px; /* Small size */
+    height: 60px;
+    border-radius: 50%; /* Circular shape */
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    outline: none;
+    z-index: 10;
+}
+
+/* Hover Animation */
+#play-audio:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient */
+    transform: translateX(-50%) scale(1.2); /* Slight scale-up */
+    box-shadow: 0 0 15px 5px rgba(106, 17, 203, 0.5); /* Glowing effect */
+}
+
+/* Active State */
+#play-audio:active {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 0 8px 3px rgba(37, 117, 252, 0.5);
+}
+
+  </style>
+</head>
+<body>
+   <!-- Video Background -->
+   <video autoplay muted loop id="background-video">
+    <source src="pp.mp4" type="video/mp4">
+</video>
+   <!-- Audio (Background Song) -->
+   <audio autoplay loop id="background-audio">
+    <source src="techno.mp3" type="audio/mp3">
+</audio>
+  <div class="container">
+    <!-- Black Section -->
+    <div class="black-section">
+      <h2>WELCOME BACK!</h2>
+      <p>Login to continue</p>
+    </div>
+    <button id="play-audio">Play Music</button>
+
+    <audio id="background-audio" loop>
+        <source src="techno.mp3" type="audio/mp3">
+    </audio>
+    <!-- White Section -->
+    <div class="white-section">
+      <h2>Login</h2>
+      <div class="input-group">
+        <input type="text"  id="username" placeholder="Username">
+        <i>&#128100;</i> <!-- User icon -->
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password">
+        <i>&#128274;</i> <!-- Lock icon -->
+      </div>
+      <button id="login-button" type="button">Login</button>
+      <div class="footer-text">
+       <p> Don't have an account? <a href="sign up.html">Sign Up</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const playButton = document.getElementById("play-audio");
+const audio = document.getElementById("background-audio");
+
+playButton.addEventListener("click", () => {
+    audio.play();
+    playButton.style.display = "none"; // Hide the button after playing
+});
+
+// Real-time validation for the username field
+document.getElementById('username').addEventListener('input', function () {
+            const username = this.value;
+            const containsNumber = /\d/.test(username);
+
+            if (containsNumber) {
+                alert("Username must not contain numbers."); // Show alert immediately
+                this.value = username.replace(/\d/g, ''); // Remove numbers from the input
+            }
+        });
+
+        // Login button click handler
+        document.getElementById('login-button').addEventListener('click', function () {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                alert("Both fields are required!"); // Validation for empty fields
+                return;
+            }
+
+            alert("Login successful!"); // Simulate successful login
+        });
+</script>
+</body>
+</html>
